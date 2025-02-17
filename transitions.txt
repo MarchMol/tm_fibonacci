@@ -1,8 +1,51 @@
-# State def
+    # State def
 start;q0
 accept;qAccept
+
 # Transitions
-q0;toEnd;#,#,R
+    # Init
+q0;start;1,1,R
+q0;start;_,_,R
+start;start;1,1,R
+start;init;_,|,R
+init;init1;_,1,R
+init1;init2;_,#,R
+init2;init3;_,1,R
+init3;read1;_,%,L
+    # toEnd
+toEnd;toEnd;|,|,R
 toEnd;toEnd;#,#,R
 toEnd;toEnd;1,1,R
-toEnd;qAccept;_,%,L
+toEnd;read1;%,%,L
+toEnd;toStart;_,%,L
+    # toStart
+toStart;toStart;1,1,L
+toStart;toStart;#,#,L
+toStart;check;|,|,L
+    # check
+check;check;1,1,L
+check;sub;_,_,R
+sub;toEnd;1,_,R
+sub;qAccept;|,|,R
+    # read1
+read1;read1;1,0,L
+read1;read2;#,#,L
+read2;read2;1,0,L
+read2;identify;|,|,R
+read2;identify;#,#,R
+identify;write;0,1,R
+identify;write;1,1,R
+    # write
+write;write;0,0,R
+write;write;1,1,R
+write;write;#,#,R
+write;write;%,%,R
+write;loop1;_,1,L
+loop1;loop1;1,1,L
+loop1;loop;%,%,L
+loop;loop;0,0,L
+loop;loop;#,#,L
+loop;next;1,1,R
+next;write;0,1,R
+next;next;#,#,R
+next;toEnd;%,#,R
