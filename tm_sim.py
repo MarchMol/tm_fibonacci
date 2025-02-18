@@ -89,3 +89,4 @@ def sim(tm, tape, start, accept,showConfig,ret):
         return time
     elif(ret == 'tape'):
         return tape
+    
